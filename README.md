@@ -65,8 +65,6 @@ Use `--output-root` to retain separate runs. `--figures` selects panels only in 
 `vendor` contains extracted study plotting helpers.
 Dependencies are installed separately.
 
-## Your own inputs
-
 Place your inputs in `inputs/` (ignored by Git), following [the input schema](docs/INPUTS.md).
 
 ```sh
@@ -95,6 +93,5 @@ The file extractor is study-specific:
 - GetContacts detection is an external dependency; the repo supplies commands, criteria, event counting and all subsequent contact-score calculations.
 - Ligand RMSD is calculated after TM Cα alignment to an explicit reference, with ligand–Asp85 distance and ≤4 Å occupancy.
 - Microswitch outputs include 21 minimum-heavy-atom distances, shared-bin peak shifts, median shifts, block-median difference CIs and WT-referenced responses.
-**- The archived frequency helper has a reproduced frame-boundary counting defect. See [the audit](docs/CONTACT_COUNTER_AUDIT.md). Corrected calculations must be compared with original research results before replacing manuscript values.**
 
 See [figure coverage](docs/FIGURE_MAP.md).
