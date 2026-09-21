@@ -1,0 +1,22 @@
+name: Code and synthetic examples
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-trajectories.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python examples/make_demo.py
+      - run: python reproduce.py verify --input-root examples/demo_inputs
+      - run: python reproduce.py current --input-root examples/demo_inputs
+      - run: python reproduce.py historical --input-root examples/demo_inputs --figures 4 S1 S6 S7 S9 S10
+      - run: python examples/make_trajectory_demo.py
+      - run: python calculate.py generated/trajectory_demo/study.json --out generated/coordinate_inputs --stages coordinates score
+      - run: python reproduce.py current --input-root generated/coordinate_inputs --output-root generated/coordinate_plots
+      - run: python reproduce.py historical --input-root generated/coordinate_inputs --output-root generated/coordinate_plots --figures 4 S6 S7 S9 S10
